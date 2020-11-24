@@ -1,0 +1,41 @@
+klao@kea:~/src/wc$ ls -l data
+total 4194304
+-rw-r--r-- 1 klao klao 2147483648 Nov 24 18:24 l
+-rw-r--r-- 1 klao klao 2147483648 Nov 24 18:18 y
+klao@kea:~/src/wc$ time cat < data/l > /dev/null
+
+real    0m0.254s
+user    0m0.004s
+sys     0m0.251s
+klao@kea:~/src/wc$ time wc -l < data/l
+16777216
+
+real    0m0.390s
+user    0m0.108s
+sys     0m0.282s
+klao@kea:~/src/wc$ time ./mmapssell < data/l
+16777216
+
+real    0m0.277s
+user    0m0.171s
+sys     0m0.105s
+
+
+
+klao@kea:~/src/wc$ time cat < data/y > /dev/null
+
+real    0m0.239s
+user    0m0.004s
+sys     0m0.235s
+klao@kea:~/src/wc$ time ./mmapssell < data/y
+1073741824
+
+real    0m0.250s
+user    0m0.161s
+sys     0m0.089s
+klao@kea:~/src/wc$ time wc -l < data/y
+1073741824
+
+real    0m1.420s
+user    0m1.150s
+sys     0m0.266s
