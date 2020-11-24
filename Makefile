@@ -17,10 +17,10 @@ bml: baseline
 	time ./baseline < data/l
 
 %: %.c
-	gcc -W -Wall -O4 -o $@ $<
+	gcc -W -Wall -march=native -O4 -o $@ $<
 
 %ll: %.c
-	clang-11 -W -Wall -O3 -o $@ $<
+	clang-11 -W -Wall -march=native -O3 -o $@ $<
 
 gendata: data/y data/l
 
@@ -33,10 +33,14 @@ data/y: data
 data/l: data
 	base64 -w 127 < /dev/zero | pv -s $(DATASIZE)g -S > $@
 
+cpuinfo:
+	gcc -c -Q -march=native --help=target
+	gcc -### -march=native /usr/include/stdlib.h
+
 clean:
 	$(RM) $(GCC_BINS) $(CLANG_BINS)
 
 mrproper: clean
 	$(RM) -r data
 
-.PHONY: clean mrproper gendata all bench bwy bwl bml
+.PHONY: clean mrproper cpuinfo gendata all bench bwy bwl bml
