@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define BUFSZ 16384
+#define BUFSZ 131072
 
 int main() {
   char buf[BUFSZ];

@@ -19,12 +19,12 @@ int main() {
 
   __m128i nls = _mm_set_epi32(0x0a0a0a0a, 0x0a0a0a0a, 0x0a0a0a0a, 0x0a0a0a0a);
 
-  long long int checksum = 0;
+  long long int lines = 0;
   for (int i = 0; i < st.st_size; i += 16) {
     __m128i c = _mm_load_si128((__m128i *)(f + i));
     c = _mm_cmpeq_epi8(c, nls);
     unsigned int m = _mm_movemask_epi8(c);
-    checksum += _mm_popcnt_u32(m);
+    lines += _mm_popcnt_u32(m);
   }
-  printf("%lld\n", checksum);
+  printf("%lld\n", lines);
 }
