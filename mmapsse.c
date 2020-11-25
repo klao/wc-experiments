@@ -17,7 +17,7 @@ int main() {
     err(1, NULL);
   }
 
-  __m128i nls = _mm_set_epi32(0x0a0a0a0a, 0x0a0a0a0a, 0x0a0a0a0a, 0x0a0a0a0a);
+  __m128i nls = _mm_set1_epi8('\n');
 
   long long int lines = 0;
   for (int i = 0; i < st.st_size; i += 16) {

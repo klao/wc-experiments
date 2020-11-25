@@ -19,7 +19,7 @@ int main() {
   long long int lines = 0;
 
   ssize_t n;
-  __m128i nls = _mm_set_epi32(0x0a0a0a0a, 0x0a0a0a0a, 0x0a0a0a0a, 0x0a0a0a0a);
+  __m128i nls = _mm_set1_epi8('\n');
 
   while ((n = read(0, buf, BUFSZ)) > 0) {
     if (n & ALIGN) {
