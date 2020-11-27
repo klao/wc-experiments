@@ -1,4 +1,5 @@
 #include <err.h>
+#include <fcntl.h>
 #include <immintrin.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +15,11 @@ int main() {
     warnx("misaligned alloc: %p", buf);
     buf = (char *) (~ALIGN & ((size_t) buf + ALIGN));
     warnx("aligned: %p", buf);
+  }
+
+  // This doesn't help at all:
+  if (posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL) != 0) {
+    err(1, NULL);
   }
 
   long long int lines = 0;
