@@ -22,13 +22,16 @@ bml: baseline
 %ll: %.c
 	clang-11 -W -Wall -march=native -O3 -o $@ $<
 
-gendata: data/y data/l
+gendata: data/y data/l data/w
 
 data:
 	mkdir -p data
 
 data/y: data
 	yes | pv -s $(DATASIZE)g -S > $@
+
+data/w: data
+	yes | base64 -w 127 | tr 'kK' ' ' | pv -s $(DATASIZE)g -S > $@
 
 data/l: data
 	base64 -w 127 < /dev/zero | pv -s $(DATASIZE)g -S > $@
